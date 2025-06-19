@@ -2,18 +2,83 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Fake Chatbot</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Speed Test for Turtles</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 <body>
-  <div class="chat-container">
-    <div class="chat-box" id="chat-box"></div>
-    <div class="input-area">
-      <input type="text" id="user-input" placeholder=" Don't type anything..." />
-      <button onclick="sendMessage()">Send</button>
-    </div>
+
+  <h1>🐢 Speed Test for Turtles</h1>
+  <p>Click the button and watch the turtle *rush* to the finish line...</p>
+  
+  <button onclick="startTest()">Start Speed Test</button>
+
+  <div id="track">
+    <div id="turtle">🐢</div>
   </div>
 
-  <script src="app.js"></script>
+  <div id="result"></div>
+
+  
 </body>
 </html>
+<script>
+  function startTest() {
+    const turtle = document.getElementById('turtle');
+    const result = document.getElementById('result');
+    const trackWidth = document.getElementById('track').offsetWidth;
+    
+    // Reset turtle position
+    turtle.style.left = '0px';
+    result.textContent = '';
+
+    // Random speed between 1 and 5 pixels per millisecond
+    const speed = Math.random() * 4 + 1;
+
+    // Move the turtle
+    let position = 0;
+    const interval = setInterval(() => {
+      position += speed;
+      turtle.style.left = position + 'px';
+
+      if (position >= trackWidth - 50) { // Assuming turtle width is 50px
+        clearInterval(interval);
+        result.textContent = 'Turtle reached the finish line! 🏁';
+      }
+    }, 1);
+  }
+
+</script>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f8ff;
+  }
+
+  h1 {
+    color: #2c3e50;
+  }
+
+  #track {
+    width: 80%;
+    height: 100px;
+    border: 2px solid #2c3e50;
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #turtle {
+    position: absolute;
+    width: 50px; /* Width of the turtle */
+    height: 50px; /* Height of the turtle */
+    font-size: 50px; /* Size of the turtle emoji */
+    transition: left 0.1s linear; /* Smooth transition */
+  }
+
+  #result {
+    margin-top: 20px;
+    font-size: 24px;
+    color: #27ae60;
+  }
